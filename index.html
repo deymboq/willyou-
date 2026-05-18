@@ -15,9 +15,24 @@
             justify-content: center;
             overflow: hidden;
             color: #fff;
+            position: relative;
         }
 
-        /* Layar Awal (Sarat Pemutar Musik) */
+        /* Efek Hati Berjatuhan */
+        .heart {
+            position: absolute;
+            color: rgba(255, 77, 109, 0.4);
+            font-size: 20px;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Layar Awal untuk Musik */
         #overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -42,55 +57,82 @@
             animation: pulse 1.5s infinite;
         }
 
-        /* Wadah Utama (Cute Cool Glassmorphism) */
+        /* Wadah Utama (Glassmorphism Premium) */
         .container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 35px;
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px 30px;
+            border-radius: 28px;
             text-align: center;
-            max-width: 420px;
+            max-width: 440px;
             width: 90%;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
             display: none;
             transform: scale(0.8);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
         }
         .container.show { display: block; transform: scale(1); }
 
-        /* Foto/GIF */
-        .photo {
-            width: 150px;
-            height: 150px;
+        /* Pengganti Image yang Error: Cincin / Couple Icon */
+        .couple-icon-wrapper {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 25px auto;
+            background: rgba(255, 77, 109, 0.1);
             border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ff4d6d;
-            box-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 65px;
+            border: 2px dashed rgba(255, 77, 109, 0.4);
+            box-shadow: 0 0 25px rgba(255, 77, 109, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         h1 {
-            font-size: 24px;
-            background: linear-gradient(45deg, #ff758f, #e0aaff);
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff758f, #ffb3c6, #e0aaff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
         }
-        p.subtitle { color: #b3b3cc; font-size: 15px; margin-bottom: 15px; }
 
-        /* Tempat Quote Ngambek Muncul */
-        #quote-text {
-            font-size: 14px;
+        /* Surat Cinta / Propose Words */
+        .proposal-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #d1d1e9;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 400;
+        }
+        .highlight {
             color: #ff4d6d;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.3);
+        }
+
+        #quote-text {
+            font-size: 13.5px;
+            color: #ff758f;
             font-weight: 500;
             min-height: 20px;
             margin-bottom: 20px;
-            text-shadow: 0 0 8px rgba(255, 77, 109, 0.3);
+            font-style: italic;
         }
 
-        /* Tombol Aksi */
+        /* Tombol */
         .btn-wrapper {
             display: flex;
             justify-content: center;
@@ -98,27 +140,29 @@
             gap: 20px;
             height: 60px;
             position: relative;
+            margin-top: 10px;
         }
         button.action-btn {
-            padding: 12px 28px;
+            padding: 12px 32px;
             font-size: 16px;
             font-weight: bold;
             border: none;
-            border-radius: 12px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         #yesBtn {
-            background-color: #ff4d6d;
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4);
             z-index: 10;
         }
         #noBtn {
-            background-color: #333244;
-            color: #9999b3;
+            background-color: #221e38;
+            color: #8c8ba5;
             position: absolute;
             left: 55%;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         @keyframes pulse {
@@ -139,10 +183,15 @@
     </div>
 
     <div class="container" id="mainCard">
-        <img src="crush.jpg" alt="Foto Kita" class="photo" id="displayPhoto">
         
-        <h1 id="mainTitle">Dream Over Anything ✨</h1>
-        <p class="subtitle" id="mainSub">Aku ingin membangun masa depan bersamamu. Kamu mau gak menjadi istriku?</p>
+        <div class="couple-icon-wrapper" id="mainIcon">💍</div>
+        
+        <h1 id="mainTitle">Dream Over Anything</h1>
+        
+        <div class="proposal-text" id="mainText">
+            Di setiap detik kehidupanku, impian terbesar adalah membangun masa depan bersamamu. Hari ini, di hadapan semesta, aku ingin menaruh seluruh hatiku di tanganmu.<br><br>
+            <span class="highlight">Selamat menunggu aku 2 tahun ya sayang...</span> Maukah kamu melangkah bersamaku dan menjadi istriku saat waktunya tiba?
+        </div>
         
         <p id="quote-text"></p>
         
@@ -159,67 +208,85 @@
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const quoteText = document.getElementById('quote-text');
+        const mainIcon = document.getElementById('mainIcon');
 
-        // Daftar quote membujuk super cute & cool ketika dia mencoba klik No
+        // Quotes penolakan yang imut
         const quotes = [
             "Ehh, jangan menolak dong... Pikir-pikir dulu! 🥺",
-            "Tombol 'Gak' lagi dinonaktifkan. Tolong pilih opsi satunya! 👉👈",
-            "Jangan menolak kaptenmu ini, kita harus bangun mimpi kita bareng! 🪐",
-            "Duh, tega banget nolak orang se-cool aku? Masih aku pantau ya 😎",
-            "Gak ada kata 'Gak'! Ayo klik tombol merah mumpung belum makin gede wkwk ❤️",
-            "I promise to give you my all. Jadi, jangan ditolak ya? ✨"
+            "Tombol 'Gak' lagi error, klik 'Mau!' aja mendingan 👉👈",
+            "Jangan ditolak, 2 tahun ini bakal jadi bukti perjuangan kita! 🪐",
+            "Duh, tega banget menolak orang se-cool aku? 😎",
+            "Nggak ada opsi 'Gak' di kamus kita, klik tombol merah sekarang! ❤️",
+            "I promise it will be worth the wait. Jadi, jangan ditolak ya? ✨"
         ];
         
         let quoteIndex = 0;
         let yesScale = 1;
 
-        // Fungsi mengaktifkan musik dan memunculkan surat
+        // Membuat Efek Hati Latar Belakang secara otomatis
+        function createHearts() {
+            const heartSymbols = ['❤️', '💖', '✨', '💕'];
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                    document.body.appendChild(heart);
+                    
+                    // Hapus hati setelah selesai animasi agar RAM tidak jebol
+                    setTimeout(() => { heart.remove(); }, 6000);
+                }, i * 300);
+            }
+        }
+
+        // Jalankan Efek Hati Berkelanjutan
+        setInterval(createHearts, 5000);
+
         function mulaiSurat() {
+            createHearts();
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.display = 'none';
                 mainCard.classList.add('show');
-                music.play().catch(err => console.log("Musik butuh izin browser"));
+                music.play().catch(err => console.log("Musik butuh interaksi"));
             }, 500);
         }
 
-        // Fungsi membuat tombol "Gak" lari + memunculkan quote + membesarkan tombol "Mau"
         function aksiKabur(e) {
             e.preventDefault();
-            
-            // Logika tombol lari acak
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40) + 20;
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40) + 20;
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
 
-            // Munculkan quote membujuk bergiliran
             quoteText.innerText = quotes[quoteIndex];
             quoteIndex = (quoteIndex + 1) % quotes.length;
 
-            // Tombol "Mau" makin lama makin besar setiap kali tombol no didekati
-            yesScale += 0.2;
+            yesScale += 0.25;
             yesBtn.style.transform = `scale(${yesScale})`;
         }
 
-        // Pasang event lari di Laptop (mouseover) dan HP (touchstart)
         noBtn.addEventListener('mouseover', aksiKabur);
         noBtn.addEventListener('touchstart', aksiKabur);
-        noBtn.addEventListener('click', aksiKabur); // Berjaga jika di HP terlanjur ketekan
+        noBtn.addEventListener('click', aksiKabur);
 
-        // Fungsi ketika dia akhirnya menyerah dan klik "Mau!"
+        // Jika Diterima
         function terimaLamaran() {
-            // Kembalikan skala tombol Yes ke normal untuk tampilan akhir
             yesBtn.style.transform = "scale(1)";
-            
-            // Ganti gambar menjadi gambar perayaan (bisa diganti link GIF lain)
-            document.getElementById('displayPhoto').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW90bWxsZW1wZms1cm95d3FmZ3RwaXN4NDFwZms0OHF3ZXN6Z3g5NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/KztT2c4u8mYYUiBtOh/giphy.gif";
+            mainIcon.innerHTML = "👩‍❤️‍👨"; // Berubah jadi emoji couple bahagia
+            mainIcon.style.background = "rgba(255, 77, 109, 0.2)";
+            mainIcon.style.border = "2px solid #ff4d6d";
             
             document.getElementById('mainTitle').innerHTML = "YES! I DO! 👰‍♀️❤️🤵‍♂️";
-            document.getElementById('mainSub').innerHTML = "Keputusan terbaik yang pernah ada! Let's build our dream over anything together, my future wife! ✨💍";
+            document.getElementById('mainText').innerHTML = `
+                <span style="font-size: 18px; font-weight: bold; color: #ff758f;">Keputusan Terbaik dalam Hidupku!</span><br><br>
+                Terima kasih sudah mau menerima perjuangan ini. Let's build our dream over anything together, my future wife! Aku berjanji waktu 2 tahun ini akan menjadi fondasi indah kita kelak. I love you! ✨💍
+            `;
             
-            // Bersihkan sisa tombol dan teks penolakan
             quoteText.style.display = 'none';
             noBtn.style.display = 'none';
             yesBtn.style.display = 'none';
