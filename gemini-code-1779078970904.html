@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Over Anything 💍</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c20, #15102a, #060409);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* Layar Awal (Sarat Pemutar Musik) */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f0c20;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+        .start-btn {
+            background: linear-gradient(45deg, #ff4d6d, #8a2be2);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Wadah Utama (Cute Cool Glassmorphism) */
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px;
+            border-radius: 24px;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            display: none;
+            transform: scale(0.8);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .container.show { display: block; transform: scale(1); }
+
+        /* Foto/GIF */
+        .photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff4d6d;
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            background: linear-gradient(45deg, #ff758f, #e0aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        p.subtitle { color: #b3b3cc; font-size: 15px; margin-bottom: 15px; }
+
+        /* Tempat Quote Ngambek Muncul */
+        #quote-text {
+            font-size: 14px;
+            color: #ff4d6d;
+            font-weight: 500;
+            min-height: 20px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(255, 77, 109, 0.3);
+        }
+
+        /* Tombol Aksi */
+        .btn-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            height: 60px;
+            position: relative;
+        }
+        button.action-btn {
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            z-index: 10;
+        }
+        #noBtn {
+            background-color: #333244;
+            color: #9999b3;
+            position: absolute;
+            left: 55%;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 77, 109, 0.6); }
+            50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(255, 77, 109, 0.9); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 77, 109, 0.6); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="doa.mp3" type="audio/mp3">
+    </audio>
+
+    <div id="overlay">
+        <button class="start-btn" onclick="mulaiSurat()">Buka Surat dari Aku ✨</button>
+    </div>
+
+    <div class="container" id="mainCard">
+        <img src="crush.jpg" alt="Foto Kita" class="photo" id="displayPhoto">
+        
+        <h1 id="mainTitle">Dream Over Anything ✨</h1>
+        <p class="subtitle" id="mainSub">Aku ingin membangun masa depan bersamamu. Kamu mau gak menjadi istriku?</p>
+        
+        <p id="quote-text"></p>
+        
+        <div class="btn-wrapper">
+            <button id="yesBtn" class="action-btn" onclick="terimaLamaran()">Mau! 💍</button>
+            <button id="noBtn" class="action-btn">Gak</button>
+        </div>
+    </div>
+
+    <script>
+        const overlay = document.getElementById('overlay');
+        const mainCard = document.getElementById('mainCard');
+        const music = document.getElementById('bgMusic');
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const quoteText = document.getElementById('quote-text');
+
+        // Daftar quote membujuk super cute & cool ketika dia mencoba klik No
+        const quotes = [
+            "Ehh, jangan menolak dong... Pikir-pikir dulu! 🥺",
+            "Tombol 'Gak' lagi dinonaktifkan. Tolong pilih opsi satunya! 👉👈",
+            "Jangan menolak kaptenmu ini, kita harus bangun mimpi kita bareng! 🪐",
+            "Duh, tega banget nolak orang se-cool aku? Masih aku pantau ya 😎",
+            "Gak ada kata 'Gak'! Ayo klik tombol merah mumpung belum makin gede wkwk ❤️",
+            "I promise to give you my all. Jadi, jangan ditolak ya? ✨"
+        ];
+        
+        let quoteIndex = 0;
+        let yesScale = 1;
+
+        // Fungsi mengaktifkan musik dan memunculkan surat
+        function mulaiSurat() {
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainCard.classList.add('show');
+                music.play().catch(err => console.log("Musik butuh izin browser"));
+            }, 500);
+        }
+
+        // Fungsi membuat tombol "Gak" lari + memunculkan quote + membesarkan tombol "Mau"
+        function aksiKabur(e) {
+            e.preventDefault();
+            
+            // Logika tombol lari acak
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40) + 20;
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40) + 20;
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+
+            // Munculkan quote membujuk bergiliran
+            quoteText.innerText = quotes[quoteIndex];
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+
+            // Tombol "Mau" makin lama makin besar setiap kali tombol no didekati
+            yesScale += 0.2;
+            yesBtn.style.transform = `scale(${yesScale})`;
+        }
+
+        // Pasang event lari di Laptop (mouseover) dan HP (touchstart)
+        noBtn.addEventListener('mouseover', aksiKabur);
+        noBtn.addEventListener('touchstart', aksiKabur);
+        noBtn.addEventListener('click', aksiKabur); // Berjaga jika di HP terlanjur ketekan
+
+        // Fungsi ketika dia akhirnya menyerah dan klik "Mau!"
+        function terimaLamaran() {
+            // Kembalikan skala tombol Yes ke normal untuk tampilan akhir
+            yesBtn.style.transform = "scale(1)";
+            
+            // Ganti gambar menjadi gambar perayaan (bisa diganti link GIF lain)
+            document.getElementById('displayPhoto').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW90bWxsZW1wZms1cm95d3FmZ3RwaXN4NDFwZms0OHF3ZXN6Z3g5NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/KztT2c4u8mYYUiBtOh/giphy.gif";
+            
+            document.getElementById('mainTitle').innerHTML = "YES! I DO! 👰‍♀️❤️🤵‍♂️";
+            document.getElementById('mainSub').innerHTML = "Keputusan terbaik yang pernah ada! Let's build our dream over anything together, my future wife! ✨💍";
+            
+            // Bersihkan sisa tombol dan teks penolakan
+            quoteText.style.display = 'none';
+            noBtn.style.display = 'none';
+            yesBtn.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
