@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,30 +76,46 @@
         }
         .container.show { display: block; transform: scale(1); }
 
-        /* Pengganti Image yang Error: Cincin / Couple Icon */
-        .couple-icon-wrapper {
-            width: 130px;
-            height: 130px;
+        /* Foto Crush Terkunci (Tidak akan hilang) */
+        .photo-wrapper {
+            width: 140px;
+            height: 140px;
             margin: 0 auto 25px auto;
-            background: rgba(255, 77, 109, 0.1);
+            position: relative;
+        }
+        .crush-photo {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff4d6d;
+            box-shadow: 0 0 25px rgba(255, 77, 109, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+        /* Mini Ring Badge di sudut foto */
+        .ring-badge {
+            position: absolute;
+            bottom: 0;
+            right: 5px;
+            background: #15102a;
+            border: 2px solid #ff4d6d;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 65px;
-            border: 2px dashed rgba(255, 77, 109, 0.4);
-            box-shadow: 0 0 25px rgba(255, 77, 109, 0.2);
-            animation: float 3s ease-in-out infinite;
+            font-size: 18px;
         }
 
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
 
         h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             background: linear-gradient(45deg, #ff758f, #ffb3c6, #e0aaff);
             -webkit-background-clip: text;
@@ -108,14 +124,13 @@
             letter-spacing: 0.5px;
         }
 
-        /* Surat Cinta / Propose Words */
+        /* Surat Propose Bahasa Inggris Romantis */
         .proposal-text {
-            font-size: 15px;
+            font-size: 14.5px;
             line-height: 1.6;
             color: #d1d1e9;
             margin-bottom: 25px;
             text-align: center;
-            font-weight: 400;
         }
         .highlight {
             color: #ff4d6d;
@@ -124,7 +139,7 @@
         }
 
         #quote-text {
-            font-size: 13.5px;
+            font-size: 13px;
             color: #ff758f;
             font-weight: 500;
             min-height: 20px;
@@ -179,25 +194,28 @@
     </audio>
 
     <div id="overlay">
-        <button class="start-btn" onclick="mulaiSurat()">Buka Surat dari Aku ✨</button>
+        <button class="start-btn" onclick="mulaiSurat()">Open Letter From Me ✨</button>
     </div>
 
     <div class="container" id="mainCard">
         
-        <div class="couple-icon-wrapper" id="mainIcon">💍</div>
+        <div class="photo-wrapper">
+            <img src="crush.jpg" alt="My Beautiful Crush" class="crush-photo">
+            <div class="ring-badge" id="subBadge">💍</div>
+        </div>
         
         <h1 id="mainTitle">Dream Over Anything</h1>
         
         <div class="proposal-text" id="mainText">
-            Di setiap detik kehidupanku, impian terbesar adalah membangun masa depan bersamamu. Hari ini, di hadapan semesta, aku ingin menaruh seluruh hatiku di tanganmu.<br><br>
-            <span class="highlight">Selamat menunggu aku 2 tahun ya sayang...</span> Maukah kamu melangkah bersamaku dan menjadi istriku saat waktunya tiba?
+            In every heartbeat, my ultimate dream is to build a beautiful forever with you. Today, I am putting my whole heart into your hands.<br><br>
+            <span class="highlight">Please give me 2 years to make this dream come true...</span> Will you walk this journey with me and be my future wife when the time comes?
         </div>
         
         <p id="quote-text"></p>
         
         <div class="btn-wrapper">
-            <button id="yesBtn" class="action-btn" onclick="terimaLamaran()">Mau! 💍</button>
-            <button id="noBtn" class="action-btn">Gak</button>
+            <button id="yesBtn" class="action-btn" onclick="terimaLamaran()">Yes, I Do! 💍</button>
+            <button id="noBtn" class="action-btn">No</button>
         </div>
     </div>
 
@@ -208,22 +226,22 @@
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const quoteText = document.getElementById('quote-text');
-        const mainIcon = document.getElementById('mainIcon');
+        const subBadge = document.getElementById('subBadge');
 
-        // Quotes penolakan yang imut
+        // Quotes penolakan bahasa Inggris yang imut & membujuk
         const quotes = [
-            "Ehh, jangan menolak dong... Pikir-pikir dulu! 🥺",
-            "Tombol 'Gak' lagi error, klik 'Mau!' aja mendingan 👉👈",
-            "Jangan ditolak, 2 tahun ini bakal jadi bukti perjuangan kita! 🪐",
-            "Duh, tega banget menolak orang se-cool aku? 😎",
-            "Nggak ada opsi 'Gak' di kamus kita, klik tombol merah sekarang! ❤️",
-            "I promise it will be worth the wait. Jadi, jangan ditolak ya? ✨"
+            "Wait, please don't say no... Think about us! 🥺",
+            "The 'No' button is currently out of service, try 'Yes'! 👉👈",
+            "These 2 years will be the proof of my love. Don't reject it just yet 🪐",
+            "Are you really going to say no to someone as cool as me? 😎",
+            "There's no 'No' in our dictionary. Click the red button! ❤️",
+            "I promise it will be worth the wait. Trust me ✨"
         ];
         
         let quoteIndex = 0;
         let yesScale = 1;
 
-        // Membuat Efek Hati Latar Belakang secara otomatis
+        // Membuat Efek Hati Latar Belakang
         function createHearts() {
             const heartSymbols = ['❤️', '💖', '✨', '💕'];
             for (let i = 0; i < 25; i++) {
@@ -236,13 +254,11 @@
                     heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
                     document.body.appendChild(heart);
                     
-                    // Hapus hati setelah selesai animasi agar RAM tidak jebol
                     setTimeout(() => { heart.remove(); }, 6000);
                 }, i * 300);
             }
         }
 
-        // Jalankan Efek Hati Berkelanjutan
         setInterval(createHearts, 5000);
 
         function mulaiSurat() {
@@ -251,7 +267,7 @@
             setTimeout(() => {
                 overlay.style.display = 'none';
                 mainCard.classList.add('show');
-                music.play().catch(err => console.log("Musik butuh interaksi"));
+                music.play().catch(err => console.log("Music needs interaction"));
             }, 500);
         }
 
@@ -274,17 +290,15 @@
         noBtn.addEventListener('touchstart', aksiKabur);
         noBtn.addEventListener('click', aksiKabur);
 
-        // Jika Diterima
+        // Jika Diterima (Foto tetap ada, hanya teks & badge berubah)
         function terimaLamaran() {
             yesBtn.style.transform = "scale(1)";
-            mainIcon.innerHTML = "👩‍❤️‍👨"; // Berubah jadi emoji couple bahagia
-            mainIcon.style.background = "rgba(255, 77, 109, 0.2)";
-            mainIcon.style.border = "2px solid #ff4d6d";
+            subBadge.innerHTML = "👩‍❤️‍👨"; // Badge kecil di sudut foto berubah jadi couple
             
-            document.getElementById('mainTitle').innerHTML = "YES! I DO! 👰‍♀️❤️🤵‍♂️";
+            document.getElementById('mainTitle').innerHTML = "YES! IT'S A PROMISE! 👰‍♀️❤️🤵‍♂️";
             document.getElementById('mainText').innerHTML = `
-                <span style="font-size: 18px; font-weight: bold; color: #ff758f;">Keputusan Terbaik dalam Hidupku!</span><br><br>
-                Terima kasih sudah mau menerima perjuangan ini. Let's build our dream over anything together, my future wife! Aku berjanji waktu 2 tahun ini akan menjadi fondasi indah kita kelak. I love you! ✨💍
+                <span style="font-size: 18px; font-weight: bold; color: #ff758f;">The Best Decision Ever!</span><br><br>
+                Thank you for choosing to trust my journey. Let's build our dream over anything together, my future wife! I promise these 2 years will be the most beautiful foundation for our future. I love you! ✨💍
             `;
             
             quoteText.style.display = 'none';
